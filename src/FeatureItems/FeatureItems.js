@@ -14,10 +14,10 @@ function FeatureItems(props) {
         className="feature__option"
         name={slugify(props.feature)}
         checked={props.checked}
-        onChange={e => props.updateFeature(e, props.feature, props.item)}
+        onChange={e => props.updateFeature(props.feature, props.item)}
       />
       <label htmlFor={props.itemHash} className="feature__label">
-        {props.name} ({USCurrencyFormat.format(props.cost)})
+        {props.item.name} ({USCurrencyFormat.format(props.item.cost)})
       </label>
     </div>
   );

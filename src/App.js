@@ -46,19 +46,23 @@ class App extends Component {
   };
 
   render() {
+    console.log("DEBUG: this.state.selected");
+    console.dir(this.state.selected);
+    console.log("====================\n\n");
     const features = Object.keys(this.props.features).map((feature, idx) => {
       const featureHash = feature + "-" + idx;
       const options = this.props.features[feature].map(item => {
         const itemHash = slugify(JSON.stringify(item));
         return (
-          <FeatureItems
-            itemHash={itemHash}
-            feature={feature}
-            checked={item.name === this.state.selected[feature].name}
-            updateFeature={this.updateFeature}
-            name={item.name}
-            cost={item.cost}
-          />
+          <div key={itemHash} className="feature__item">
+            <FeatureItems
+              itemHash={itemHash}
+              feature={feature}
+              checked={item.name === this.state.selected[feature].name}
+              updateFeature={this.updateFeature}
+              item={{ name: item.name, cost: item.cost }}
+            />
+          </div>
         );
       });
 
