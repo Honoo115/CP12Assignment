@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import Summary from "./Summary/Summary";
 import FeatureItems from "./FeatureItems/FeatureItems";
+import FeatureOption from "./FeatureOption/FeatureOption";
+import MainTotal from "./MainTotal/MainTotal";
+import MainForm from "./MainForm/MainForm";
 // Normalizes string as a slug - a string that is safe to use
 // in both URLs and html attributes
 import slugify from "slugify";
@@ -46,9 +49,6 @@ class App extends Component {
   };
 
   render() {
-    console.log("DEBUG: this.state.selected");
-    console.dir(this.state.selected);
-    console.log("====================\n\n");
     const features = Object.keys(this.props.features).map((feature, idx) => {
       const featureHash = feature + "-" + idx;
       const options = this.props.features[feature].map(item => {
@@ -67,12 +67,7 @@ class App extends Component {
       });
 
       return (
-        <fieldset className="feature" key={featureHash}>
-          <legend className="feature__name">
-            <h3>{feature}</h3>
-          </legend>
-          {options}
-        </fieldset>
+        <FeatureOption key={featureHash} feature={feature} options={options} />
       );
     });
 
@@ -87,19 +82,11 @@ class App extends Component {
           <h1>ELF Computing | Laptops</h1>
         </header>
         <main>
-          <form className="main__form">
-            <h2>Customize your laptop</h2>
-            {features}
-          </form>
+          <MainForm features={features} />
           <section className="main__summary">
             <h2>Your cart</h2>
             <Summary selected={this.state.selected} />
-            <div className="summary__total">
-              <div className="summary__total__label">Total</div>
-              <div className="summary__total__value">
-                {USCurrencyFormat.format(total)}
-              </div>
-            </div>
+            <MainTotal total={total} />
           </section>
         </main>
       </div>
